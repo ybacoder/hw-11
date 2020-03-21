@@ -62,11 +62,30 @@ function buildCharts(sample) {
 
     // Build a Pie Chart
     const pieTag = d3.select("#pie")
-    Plotly.plot(piePlot, data, pieLayout);
+    Plotly.newPlot(piePlot, data, pieLayout);
 
 
-    // @TODO: Build a Bubble Chart using the sample data
-    const bubbleTag = d3.select("#bubble")
+    // Build a Bubble Chart using the sample data
+    // var trace1 = {
+    //   x: [1, 2, 3, 4],
+    //   y: [10, 11, 12, 13],
+    //   mode: 'markers',
+    //   marker: {
+    //     size: [40, 60, 80, 100]
+    //   }
+    // };
+    
+    // var data = [trace1];
+    
+    // var layout = {
+    //   title: 'Marker Size',
+    //   showlegend: false,
+    //   height: 600,
+    //   width: 600
+    // };
+    
+    // const bubbleTag = d3.select("#bubble")
+    // Plotly.newPlot('myDiv', data, layout);
 
 
 
