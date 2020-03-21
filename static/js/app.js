@@ -1,28 +1,69 @@
 function buildMetadata(sample) {
 
-  // @TODO: Complete the following function that builds the metadata panel
+  // Use d3 to select the panel with id of `#sample-metadata`
+  const selectTag = d3.select("#sample-metadata")
 
   // Use `d3.json` to fetch the metadata for a sample
-    // Use d3 to select the panel with id of `#sample-metadata`
+  let metadata_URL = "/metadata/" + sample
 
-    // Use `.html("") to clear any existing metadata
-
-    // Use `Object.entries` to add each key and value pair to the panel
-    // Hint: Inside the loop, you will need to use d3 to append new
-    // tags for each key-value in the metadata.
-
-    // BONUS: Build the Gauge Chart
-    // buildGauge(data.WFREQ);
+  d3.json(metadata_URL).then(function(metadata) {
+    selectTag.selectAll("*").remove()  // clear existing metadata
+    
+    // add each key and value pair to the panel
+    for (const property in metadata) {
+      selectTag.append("p").text(`${property}: ${metadata[property]}`);
+    }
+    
+  })
+  
 }
 
 function buildCharts(sample) {
 
   // @TODO: Use `d3.json` to fetch the sample data for the plots
+  let sample_URL = "/samples/" + sample
 
-    // @TODO: Build a Bubble Chart using the sample data
+  d3.json(sample_URL).then(function(sample) {
+    // console.log(sample)
 
-    // @TODO: Build a Pie Chart
-    // HINT: You will need to use slice() to grab the top 10 sample_values,
+    let sampleSort = []
+    for (let i = 0; i < sample.sample_values.length; i++) {
+      sampleSort.push(
+        {
+        "otu_ids": sample.otu_ids[i],
+        "otu_labels": sample.otu_labels[i],
+        "sample_values": sample.sample_values[i]
+        }
+      )
+    }
+
+    sampleSort = sampleSort.sort(function (a, b) {
+      return b.sample_values - a.sample_values;
+    });
+    // console.log(sampleSort)
+  
+    // use slice() to grab the top 10 sample_values
+    sampleSort = sampleSort.slice(0, 10)
+    console.log(sampleSort)
+  })
+  
+  // @TODO: Build a Bubble Chart using the sample data
+  const bubbleTag = d3.select("#bubble")
+
+
+
+  // @TODO: Build a Pie Chart
+  const pieTag = d3.select("#pie")
+
+
+  // const layout = {
+  //   height: 600,
+  //   width: 800
+  // };
+
+  // Plotly.plot("pie", data, layout);
+
+
     // otu_ids, and labels (10 each).
 }
 
