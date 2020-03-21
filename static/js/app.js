@@ -44,7 +44,7 @@ function buildCharts(sample) {
   
     // use slice() to grab the top 10 sample_values
     sampleSort = sampleSort.slice(0, 10)
-    console.log(sampleSort)
+    // console.log(sampleSort)
 
     const piePlot = "pie"
     let data = [
@@ -56,6 +56,7 @@ function buildCharts(sample) {
     ]
 
     const pieLayout = {
+      title: "Top 10 Sample Values",
       height: 600,
       width: 600
     };
@@ -66,26 +67,33 @@ function buildCharts(sample) {
 
 
     // Build a Bubble Chart using the sample data
-    // var trace1 = {
-    //   x: [1, 2, 3, 4],
-    //   y: [10, 11, 12, 13],
-    //   mode: 'markers',
-    //   marker: {
-    //     size: [40, 60, 80, 100]
-    //   }
-    // };
+    let trace1 = {
+      x: sample.otu_ids,
+      y: sample.sample_values,
+      text: sample.otu_labels,
+      mode: 'markers',
+      marker: {
+        size: sample.sample_values,
+        color: sample.otu_ids
+      }
+    };
     
-    // var data = [trace1];
+    data = [trace1];
     
-    // var layout = {
-    //   title: 'Marker Size',
-    //   showlegend: false,
-    //   height: 600,
-    //   width: 600
-    // };
+    const bubbleLayout = {
+      title: "Sample Value vs. Sample ID",
+      xaxis: {
+        title: "Sample ID"
+      },
+      yaxis: {
+        title: "Sample Value"
+      },
+      showlegend: false,
+      height: 600,
+      width: 1200,
+    };
     
-    // const bubbleTag = d3.select("#bubble")
-    // Plotly.newPlot('myDiv', data, layout);
+    Plotly.newPlot("bubble", data, bubbleLayout);
 
 
 
