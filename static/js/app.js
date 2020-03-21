@@ -45,26 +45,42 @@ function buildCharts(sample) {
     // use slice() to grab the top 10 sample_values
     sampleSort = sampleSort.slice(0, 10)
     console.log(sampleSort)
+
+    const piePlot = "pie"
+    let data = [
+      {
+        values: sampleSort.map(e => e.sample_values),
+        labels: sampleSort.map(e => e.otu_ids),
+        type: piePlot
+      }
+    ]
+
+    const pieLayout = {
+      height: 600,
+      width: 600
+    };
+
+    // Build a Pie Chart
+    const pieTag = d3.select("#pie")
+    Plotly.plot(piePlot, data, pieLayout);
+
+
+    // @TODO: Build a Bubble Chart using the sample data
+    const bubbleTag = d3.select("#bubble")
+
+
+
+
   })
   
-  // @TODO: Build a Bubble Chart using the sample data
-  const bubbleTag = d3.select("#bubble")
 
 
 
-  // @TODO: Build a Pie Chart
-  const pieTag = d3.select("#pie")
 
 
-  // const layout = {
-  //   height: 600,
-  //   width: 800
-  // };
-
-  // Plotly.plot("pie", data, layout);
 
 
-    // otu_ids, and labels (10 each).
+
 }
 
 function init() {
