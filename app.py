@@ -18,9 +18,7 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    os.environ.get("JAWSDB_URL", "") or "sqlite:///db/bellybutton.sqlite"
-)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/bellybutton.sqlite"
 db = SQLAlchemy(app)
 
 # reflect an existing database into a new model
@@ -32,10 +30,6 @@ Base.prepare(db.engine, reflect=True)
 Samples_Metadata = Base.classes.sample_metadata
 Samples = Base.classes.samples
 
-
-@app.before_first_request
-def setup():
-    db.create_all()
 
 @app.route("/")
 def index():
